@@ -14,6 +14,12 @@ export default {
 </script>
 <style scoped>
   button {
-    background: cyan;
+    background: #333;
+    color: #eee;
+    border: 0px;
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    text-transform: uppercase;
   }
 </style>

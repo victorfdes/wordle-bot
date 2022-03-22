@@ -1,37 +1,49 @@
 <template>
   <div class="container">
-    <div class="words">
-
-    </div>
     <div class="input-area">
-      <ActionButton @click="processWords" />
+      <InputArea @process="processWords" />
+    </div>
+    <div class="words">
+      <WordList :list="wordList" />
     </div>
   </div>
 </template>
 
 <script>
 import { words } from '@/words.json'
-import ActionButton from './components/ActionButton.vue'
+import InputArea from '@/components/InputArea.vue'
+import WordList from '@/components/WordList.vue'
 export default {
   name: 'App',
   data: () => ({
-    goodLetters: [],
-    badLetters: [],
-    placedLetters: [], // Length 5
+    wordList: ['north', 'south']
   }),
   methods: {
-    processWords () {
-      console.log('Process', this.goodLetters.length, words.length)
+    processWords (data) {
+      let newWords = [...words]
+      const {
+        good,
+        bad,
+        placed,
+      } = data
+      
+      // Filter Placed words
+      newWords = newWords.filter(word => {
+        return word !== [good, bad, placed]
+      })
+
+      this.wordList = newWords
     }
   },
   components: {
-    ActionButton,
+    InputArea,
+    WordList,
   }
 }
 </script>
 
 <style>
 .container {
-
+  font-family: 'Lato', sans-serif;
 }
 </style>
