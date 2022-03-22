@@ -27,8 +27,7 @@ export default {
         bad,
         placed,
       } = data
-      
-      // Filter Placed words
+
       newWords = newWords.filter(word => {
         if (!this.matchPlaced(word, placed)) {
           return false
@@ -55,7 +54,6 @@ export default {
       return match
     },
     matchGood (word, good) {
-      // North -> pay Fail
       let match = true
       good.forEach(alphabet => {
         if (word.indexOf(alphabet) === -1) {
