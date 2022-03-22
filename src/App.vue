@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="app-container">
     <div class="input-area">
       <InputArea @process="processWords" />
     </div>
@@ -15,6 +15,9 @@ import InputArea from '@/components/InputArea.vue'
 import WordList from '@/components/WordList.vue'
 export default {
   name: 'App',
+  metaInfo: {
+    title: 'Wordle Bot'
+  },
   data: () => ({
     wordList: []
   }),
@@ -80,7 +83,23 @@ export default {
 </script>
 
 <style>
-.container {
+.app-container {
   font-family: 'Lato', sans-serif;
+}
+@media screen and (min-width: 700px) {
+  .app-container {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+  .input-area {
+    width: 400px;
+    box-sizing: border-box;
+  }
+
+  .words {
+    width: calc(100% - 416px);
+    box-sizing: border-box;
+  }
 }
 </style>
