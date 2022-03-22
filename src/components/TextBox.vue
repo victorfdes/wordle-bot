@@ -2,7 +2,7 @@
   <div class="input-container">
     <div class="label">{{ label }} ({{ help }})</div>
     <div class="field">
-      <input type="text" v-model="textValue" />
+      <input type="text" v-model="textValue" :maxlength="maxlength" />
       <button class="clear-icon" @click="clear">X</button>
     </div>
   </div>
@@ -14,6 +14,10 @@ export default {
   props: {
     label: String,
     help: String,
+    maxlength: {
+      type: String,
+      default: '26'
+    },
   },
   data: function () {
     return ({
