@@ -1,62 +1,40 @@
 <template>
   <div class="input-area">
-    <TextBox
-      label="Good Letters"
-      help="Yellow"
-      @text="updateGoodLetters"
-    />
-    <TextBox
-      label="Bad Letters"
-      help="Grey"
-      @text="updateBadLetters"
-    />
+    <TextBox label="Good Letters" help="Yellow" @text="updateGoodLetters" />
+    <TextBox label="Bad Letters" help="Grey" @text="updateBadLetters" />
 
-    <PlacedInput
-      @text="updatePlacedLetters"
-    />
+    <PlacedInput @text="updatePlacedLetters" />
 
     <ActionButton @click="emitData" />
   </div>
 </template>
-<script>
+<script setup lang="ts">
+import { ref } from 'vue'
 import ActionButton from './ActionButton.vue'
 import PlacedInput from './PlacedInput.vue'
 import TextBox from './TextBox.vue'
-export default {
-  name: 'InputBox',
 
-  components: {
-    ActionButton,
-    PlacedInput,
-    TextBox,
-  },
+const emit = defineEmits(['process'])
 
-  data () {
-    return {
-      goodLetters: [],
-      badLetters: [],
-      placedLetters: [],
-    }
-  },
+const goodLetters = ref([])
+const badLetters = ref([])
+const placedLetters = ref([])
 
-  methods: {
-    emitData () {
-      this.$emit('process', {
-        good: this.goodLetters,
-        bad: this.badLetters,
-        placed: this.placedLetters,
-      })
-    },
-    updateGoodLetters (value) {
-      this.goodLetters = value.split('')
-    },
-    updateBadLetters (value) {
-      this.badLetters = value.split('')
-    },
-    updatePlacedLetters (value) {
-      this.placedLetters = value
-    },
-  }
+const emitData = () => {
+  emit('process', {
+    good: goodLetters.value,
+    bad: badLetters.value,
+    placed: placedLetters.value,
+  })
+}
+const updateGoodLetters = (value) => {
+  goodLetters.value = value.split('')
+}
+const updateBadLetters = (value) => {
+  badLetters.value = value.split('')
+}
+const updatePlacedLetters = (value) => {
+  placedLetters.value = value
 }
 </script>
 <style scoped>

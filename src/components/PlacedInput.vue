@@ -1,3 +1,25 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const emit = defineEmits(['text'])
+
+const a = ref('')
+const b = ref('')
+const c = ref('')
+const d = ref('')
+const e = ref('')
+
+const handleInput = () => {
+  emit('text', [
+    a.value.toLowerCase(),
+    b.value.toLowerCase(),
+    c.value.toLowerCase(),
+    d.value.toLowerCase(),
+    e.value.toLowerCase(),
+  ])
+}
+
+</script>
 <template>
   <div class="container">
   <div class="label">
@@ -12,31 +34,6 @@
   </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'PlacedInput',
-  data () {
-    return ({
-      a: '',
-      b: '',
-      c: '',
-      d: '',
-      e: '',
-    })
-  },
-  methods: {
-    handleInput () {
-      this.$emit('text', [
-        this.a.toLowerCase(),
-        this.b.toLowerCase(),
-        this.c.toLowerCase(),
-        this.d.toLowerCase(),
-        this.e.toLowerCase(),
-      ])
-    }
-  }
-}
-</script>
 <style scoped>
 input {
   width: 30px;

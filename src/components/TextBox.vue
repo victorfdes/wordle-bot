@@ -8,48 +8,48 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'TextBox',
-  props: {
-    label: String,
-    help: String,
-    maxlength: {
-      type: String,
-      default: '26'
-    },
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+
+defineProps({
+  label: String,
+  help: String,
+  maxlength: {
+    type: String,
+    default: '26'
   },
-  data: function () {
-    return ({
-      text: '',
+})
+
+const emit = defineEmits(['text'])
+
+const text = ref('')
+
+const textValue = computed({
+  // getter
+  get() {
+    return text.value
+  },
+  // setter
+  set(newValue) {
+    const characters = {}
+    newValue.split('').forEach(character => {
+      const char = character.toLowerCase()
+      const charCode = char.charCodeAt(0)
+      if ((charCode >= 97 && charCode < 123)) {
+        characters[char] = true
+      }
     })
-  },
-  methods: {
-    clear () {
-      this.text = ''
-      this.$emit('text', this.text)
-    },
-  },
-  computed: {
-    textValue: {
-      get: function () {
-        return this.text
-      },
-      set: function (newValue) {
-        const characters = {}
-        newValue.split('').forEach(character => {
-          const char = character.toLowerCase()
-          const charCode = char.charCodeAt(0)
-          if ((charCode >= 97 && charCode < 123)) {
-            characters[char] = true
-          }
-        })
-        this.text = Object.keys(characters).join('')
-        this.$emit('text', this.text)
-      },
-    }
-  },
+    text.value = Object.keys(characters).join('')
+    emit('text', text.value)
+  }
+})
+
+
+const clear = () => {
+  text.value = ''
+  emit('text', text.value)
 }
+
 </script>
 
 <style scoped>
@@ -67,17 +67,20 @@ export default {
   font-size: 10px;
   margin-left: 8px;
 }
+
 input {
   text-transform: uppercase;
   height: 30px;
   width: calc(100% - 50px);
 }
+
 .input-container {
   padding: 16px;
   border: 1px solid #ccc;
   margin-bottom: 16px;
   border-radius: 5px;
 }
+
 .field {
   display: flex;
   justify-content: space-between;
